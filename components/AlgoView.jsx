@@ -6,6 +6,8 @@ import useStore from '../store/stateStore';
 import Delay from './Delay';
 const AlgoView = () => {
   const setAni = useStore((state) => state.setAni);
+  const clearPaths = useStore((state) => state.clearPaths);
+  // const clearPaths = useStore((state) => state.clearPaths);
   const setToggled = useStore((state) => state.setToggled);
   const topics = [
     {
@@ -55,6 +57,7 @@ const AlgoView = () => {
           onClick={() => {
             setStarted((prev) => !prev);
             setToggled();
+            // clearPaths();
             setAni();
           }}
           className="text-2xl cursor-pointer w-[33%] h-full items-center flex 
