@@ -56,7 +56,6 @@ const AlgoView = () => {
         <span
           onClick={() => {
             setStarted((prev) => !prev);
-            setToggled();
             // clearPaths();
             setAni();
           }}
