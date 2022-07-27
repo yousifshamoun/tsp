@@ -5,6 +5,9 @@ import { IoMdRefresh } from 'react-icons/io';
 import useStore from '../store/stateStore';
 import Delay from './Delay';
 const AlgoView = () => {
+  //variables
+  const types = { add: 'CHANGE_INPUT_VALUE' };
+  const dispatch = useStore((state) => state.dispatch);
   const setAni = useStore((state) => state.setAni);
   const clearPaths = useStore((state) => state.clearPaths);
   // const clearPaths = useStore((state) => state.clearPaths);
@@ -25,9 +28,6 @@ const AlgoView = () => {
     {
       name: 'convex hull',
     },
-    {
-      name: 'simulated annealing',
-    },
   ];
   //states
   const [started, setStarted] = useState(true);
@@ -38,6 +38,9 @@ const AlgoView = () => {
     >
       <div className="text-gray-500 font-semibold mt-2">ALGORITHM</div>
       <select
+        onChange={(e) => {
+          dispatch({ type: types.add, by: e.target.value });
+        }}
         className="mt-2 w-full outline-none border-2 border-gray-200 text-md capitalize 
             p-2 rounded cursor-pointer
             hover:border-black"
@@ -57,16 +60,19 @@ const AlgoView = () => {
           onClick={() => {
             setStarted((prev) => !prev);
             // clearPaths();
+
             setAni();
           }}
-          className="text-2xl cursor-pointer w-[33%] h-full items-center flex 
+          className="text-2xl  font-semibold
+          text-[#00819E] cursor-pointer w-[33%] h-full items-center flex 
             justify-center border-r-2 border-[#00819E]"
         >
-          {started ? (
+          Start
+          {/* {started ? (
             <BsFillPlayFill color="#00819E" />
           ) : (
             <BsFillPauseFill color="#00819E" />
-          )}
+          )} */}
         </span>
 
         <span
@@ -81,7 +87,10 @@ const AlgoView = () => {
             <AiFillFastForward color="#00819E" />
           )}
         </span>
-        <span className="text-xl cursor-pointer w-[33%] flex justify-center">
+        <span
+          // onClick={dispatch({ type: types.add, by: 'hello' })}
+          className="text-xl cursor-pointer w-[33%] flex justify-center"
+        >
           <IoMdRefresh color="#00819E" />
         </span>
       </div>

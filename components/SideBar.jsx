@@ -3,9 +3,11 @@ import { MdCardTravel } from 'react-icons/md';
 import { AiFillGithub } from 'react-icons/ai';
 import { BiInfoCircle } from 'react-icons/bi';
 import Link from 'next/link';
+import useStore from '../store/stateStore';
 import AlgoView from './AlgoView';
 import Map from './MapPlot';
 const SideBar = () => {
+  const { dist, best } = useStore();
   const [Started, setStarted] = useState(false);
   return (
     <div className="flex flex-col p-[16px] ">
@@ -43,15 +45,19 @@ const SideBar = () => {
             className="p-3 flex justify-between text-gray-500 font-semibold 
           text-sm "
           >
-            SHORTEST PATH:
-            <span className="text-gray-800">KM</span>
+            CURRENT PATH:
+            <span className="text-gray-800">
+              {dist ? dist.toFixed(2) : ''} KM
+            </span>
           </div>
           <div
             className="p-3 flex justify-between text-gray-500 font-semibold 
           text-sm "
           >
-            RUNNING FOR:
-            <span className="text-gray-800">S</span>
+            BEST PATH:
+            <span className="text-gray-800">
+              {best ? best.toFixed(2) : ''} KM
+            </span>
           </div>
           <AlgoView />
         </div>

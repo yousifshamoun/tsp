@@ -1,4 +1,5 @@
 import * as React from 'react';
+import useStore from '../store/stateStore';
 import Slider, {
   SliderThumb,
   SliderValueLabelProps,
@@ -7,7 +8,7 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
-
+const types = { add: 'CHANGE_INPUT_VALUE' };
 const PrettoSlider = styled(Slider)({
   color: '#00819E',
 
@@ -50,11 +51,17 @@ const PrettoSlider = styled(Slider)({
 });
 
 export default function Delay() {
+  const setDelay = useStore((state) => state.setDelay);
+  const delay = useStore((state) => state.delay);
   return (
     <div>
       <div className="text-gray-500 font-semibold mt-4">DELAY</div>{' '}
       <PrettoSlider
+        onChange={(e) => {
+          setDelay({ type: types.add, by: e.target.value });
+        }}
         step={25}
+        value={delay}
         max={250}
         valueLabelDisplay="auto"
         aria-label="pretto slider"

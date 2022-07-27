@@ -1,26 +1,9 @@
-const distance = (pt1, pt2) => {
-  const [lng1, lat1] = pt1;
-  const [lng2, lat2] = pt2;
-  if (lat1 === lat2 && lng1 === lng2) {
-    return 0;
-  }
-
-  var radlat1 = (Math.PI * lat1) / 180;
-  var radlat2 = (Math.PI * lat2) / 180;
-
-  var theta = lng1 - lng2;
-  var radtheta = (Math.PI * theta) / 180;
-
-  var dist =
-    Math.sin(radlat1) * Math.sin(radlat2) +
-    Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-
-  if (dist > 1) {
-    dist = 1;
-  }
-  dist = Math.acos(dist);
-  dist = (dist * 180) / Math.PI;
-  return dist * 60 * 1.1515 * 1.609344;
+import distance from './distance';
+const pathCost = (path) => {
+  return path
+    .slice(0, -1)
+    .map((point, idx) => distance(point, path[idx + 1]))
+    .reduce((a, b) => a + b, 0);
 };
 const nearestNeighbor = () => {
   const points = [
@@ -66,15 +49,17 @@ const nearestNeighbor = () => {
   }
 
   path.push(path[0]);
+
   const routes = [];
   let l = 0;
   let r = 1;
   while (path.length > r) {
-    routes.push({ start: path[l], end: path[r] });
+    routes.push({ start: path[l], end: path[r] }, distance(path[l], path[r]));
     l += 1;
     r += 1;
   }
+  const cost = pathCost(path);
 
-  return routes;
+  return [routes, cost];
 };
 export default nearestNeighbor;

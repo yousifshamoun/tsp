@@ -8,8 +8,9 @@ const MAPBOX_TOKEN =
 
 export default function Home() {
   const aniPaths = useStore((state) => state.aniPaths);
-  const MALE_COLOR = [0, 128, 255];
-  const FEMALE_COLOR = [255, 0, 128];
+  const color = useStore((state) => state.color);
+  const MALE_COLOR = [0, 176, 255];
+  const FEMALE_COLOR = [234, 67, 53];
 
   const usTop12 = [
     [-73.85835427500902, 40.56507951957753],
@@ -52,8 +53,7 @@ export default function Home() {
     new ScatterplotLayer({
       id: 'scatter-plot',
       data: usTop12,
-      radiusScale: 10,
-      radiusMinPixels: 8,
+      radiusMinPixels: 5,
       getPosition: (d) => [d[0], d[1], 0],
       getColor: (d) => (d[2] === 1 ? MALE_COLOR : FEMALE_COLOR),
     }),
@@ -63,8 +63,8 @@ export default function Home() {
       opacity: 0.8,
       getSourcePosition: (d) => d.start,
       getTargetPosition: (d) => d.end,
-      getColor: MALE_COLOR,
-      getWidth: (d) => 5,
+      getColor: color,
+      getWidth: (d) => 3,
     }),
   ];
 
