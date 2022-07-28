@@ -44,7 +44,7 @@ const useStore = create((set, get) => ({
   best: 0,
   pts: data(),
   setAni: async () => {
-    const points = get().random ? get().pts : data();
+    const points = get().pts.slice();
     const [routes, cost] =
       get().caption === 'nearest neighbor'
         ? nearestNeighbor(points)
@@ -76,7 +76,7 @@ const useStore = create((set, get) => ({
     } else if (get().best > get().dist) {
       set({ best: get().dist });
     }
-    console.log(get().pts);
+    console.log(get().aniPaths);
   },
   //   setAni: async () => {
   //     set((state) => {
