@@ -11,8 +11,8 @@ const AlgoView = () => {
   const dispatch = useStore((state) => state.dispatch);
   const setAni = useStore((state) => state.setAni);
   const clearPaths = useStore((state) => state.clearPaths);
-  // const clearPaths = useStore((state) => state.clearPaths);
-  const setToggled = useStore((state) => state.setToggled);
+  const running = useStore((state) => state.running);
+
   const topics = [
     {
       name: 'nearest neighbor',
@@ -57,15 +57,18 @@ const AlgoView = () => {
         className="flex justify-center items-center 
       rounded w-full border-2 h-[45px] border-[#00819E]"
       >
-        <span
+        <button
+          disabled={running}
           onClick={() => {
             setStarted((prev) => !prev);
             // clearPaths();
             setAni();
           }}
-          className="text-2xl  font-semibold
-          text-[#00819E] cursor-pointer w-[33%] h-full items-center flex 
-            justify-center border-r-2 border-[#00819E]"
+          className={`text-2xl  font-semibold
+          text-[#00819E] ${
+            !running && 'cursor-pointer'
+          } w-[33%] h-full items-center flex 
+            justify-center border-r-2 border-[#00819E]`}
         >
           Start
           {/* {started ? (
@@ -73,28 +76,24 @@ const AlgoView = () => {
           ) : (
             <BsFillPauseFill color="#00819E" />
           )} */}
-        </span>
-
+        </button>
         <span
-          className={`text-2xl  w-[33%] h-full items-center flex 
-        justify-center border-r-2 border-[#00819E] ${
-          !started && 'cursor-pointer'
-        }`}
-        >
-          {started ? (
-            <AiFillFastForward color="gray" />
-          ) : (
-            <AiFillFastForward color="#00819E" />
-          )}
-        </span>
-        <span
-          onClick={setRandom}
+          onClick={setRandom()}
           // onClick={dispatch({ type: types.add, by: 'hello' })}
           className="text-2xl  font-semibold
           text-[#00819E] cursor-pointer w-[33%] h-full items-center flex 
-            justify-center border-[#00819E]"
+            justify-center border-[#00819E] border-r-2"
         >
           Shuffle
+        </span>
+
+        <span
+          className="text-2xl  font-semibold
+          text-[#00819E] cursor-pointer w-[33%] h-full items-center flex 
+            justify-center border-[#00819E]"
+          onClick={clearPaths()}
+        >
+          Reset
         </span>
       </div>
       <Delay />
