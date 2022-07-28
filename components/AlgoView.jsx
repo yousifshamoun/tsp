@@ -5,6 +5,7 @@ import { IoMdRefresh } from 'react-icons/io';
 import useStore from '../store/stateStore';
 import Delay from './Delay';
 const AlgoView = () => {
+  const setRandom = useStore((state) => state.setRandom);
   //variables
   const types = { add: 'CHANGE_INPUT_VALUE' };
   const dispatch = useStore((state) => state.dispatch);
@@ -60,7 +61,6 @@ const AlgoView = () => {
           onClick={() => {
             setStarted((prev) => !prev);
             // clearPaths();
-
             setAni();
           }}
           className="text-2xl  font-semibold
@@ -88,10 +88,13 @@ const AlgoView = () => {
           )}
         </span>
         <span
+          onClick={setRandom}
           // onClick={dispatch({ type: types.add, by: 'hello' })}
-          className="text-xl cursor-pointer w-[33%] flex justify-center"
+          className="text-2xl  font-semibold
+          text-[#00819E] cursor-pointer w-[33%] h-full items-center flex 
+            justify-center border-[#00819E]"
         >
-          <IoMdRefresh color="#00819E" />
+          Shuffle
         </span>
       </div>
       <Delay />

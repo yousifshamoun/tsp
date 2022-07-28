@@ -20,38 +20,44 @@ const red = (state, { type, by = 1 }) => {
       return { delay: by };
   }
 };
-//algos
-
-// const routes = arbitraryInsertion();
-
-//store starts
+const handleRandom = () => {
+  return Array.from({ length: 29 }).map(() => [
+    Math.random() * -40 - 80,
+    Math.random() * 15 + 30,
+  ]);
+};
 const useStore = create((set, get) => ({
   caption: 'nearest neighbor',
   dispatch: (args) => set((state) => reducer(state, args)),
   setDelay: (args) => set((state) => red(state, args)),
   // setToggled: () => set((state) => ({ toggle: !state.toggle })),
   // clearPaths: () => set({ aniPaths: [] }),
-
+  random: false,
+  setRandom: () => {
+    set({ random: true, pts: handleRandom() });
+  },
   aniPaths: [],
+
   dist: 0,
-  points: data,
-  color: [0, 176, 255],
+  color: [23, 108, 213],
   delay: 100,
   best: 0,
+  pts: data(),
   setAni: async () => {
+    const points = get().random ? get().pts : data();
     const [routes, cost] =
       get().caption === 'nearest neighbor'
-        ? nearestNeighbor()
+        ? nearestNeighbor(points)
         : get().caption === 'arbitrary insertion'
-        ? arbitraryInsertion()
+        ? arbitraryInsertion(points)
         : get().caption === 'nearest insertion'
-        ? nearestInsertion()
+        ? nearestInsertion(points)
         : get().caption === 'furthest insertion'
-        ? furthestInsertion()
-        : convexHull();
+        ? furthestInsertion(points)
+        : convexHull(points);
 
     set({ aniPaths: [] });
-    set({ color: [0, 176, 255] });
+    set({ color: [23, 108, 213] });
     set({ dist: 0 });
     for (let i = 0; i < routes.length; i++) {
       set((state) => {
@@ -59,7 +65,9 @@ const useStore = create((set, get) => ({
         aniPaths.push(routes[i]);
         return { aniPaths };
       });
-      await sleep(get().delay);
+      await sleep(
+        get().caption === 'nearest neighbor' ? get().delay * 0.5 : get().delay
+      );
     }
     set({ dist: cost });
     set({ color: [93, 170, 80] });
@@ -68,7 +76,7 @@ const useStore = create((set, get) => ({
     } else if (get().best > get().dist) {
       set({ best: get().dist });
     }
-    console.log(get().delay);
+    console.log(get().pts);
   },
   //   setAni: async () => {
   //     set((state) => {
