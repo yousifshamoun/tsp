@@ -31,15 +31,14 @@ const useStore = create((set, get) => ({
   dispatch: (args) => set((state) => reducer(state, args)),
   setDelay: (args) => set((state) => red(state, args)),
   // setToggled: () => set((state) => ({ toggle: !state.toggle })),
-  clearPaths: () => set({ aniPaths: [] }),
-  random: false,
+  reset: () => set({ aniPaths: [], pts: data() }),
   setRandom: () => {
-    set({ random: true, pts: handleRandom() });
+    set({ pts: handleRandom() });
   },
   aniPaths: [],
+  running: false,
 
   dist: 0,
-  running: false,
   color: [23, 108, 213],
   delay: 100,
   best: 0,
@@ -80,5 +79,17 @@ const useStore = create((set, get) => ({
     }
     set({ running: false });
   },
+  //   setAni: async () => {
+  //     set((state) => {
+  //       const aniPaths = [...state.aniPaths]; // copy the array
+  //       aniPaths.push({
+  //         start: [-73.85835427500902, 40.56507951957753],
+  //         end: [-77.54976052500858, 38.772432514145194],
+  //       });
+  //       return { aniPaths };
+  //     });
+  //     //set ends
+  //     await sleep(500);
+  //   },
 }));
 export default useStore;

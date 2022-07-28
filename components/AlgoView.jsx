@@ -11,8 +11,9 @@ const AlgoView = () => {
   const dispatch = useStore((state) => state.dispatch);
   const setAni = useStore((state) => state.setAni);
   const clearPaths = useStore((state) => state.clearPaths);
+  // const clearPaths = useStore((state) => state.clearPaths);
   const running = useStore((state) => state.running);
-
+  const reset = useStore((state) => state.reset);
   const topics = [
     {
       name: 'nearest neighbor',
@@ -30,8 +31,7 @@ const AlgoView = () => {
       name: 'convex hull',
     },
   ];
-  //states
-  const [started, setStarted] = useState(true);
+
   return (
     <div
       className="border-2 border-[#00819E] w-[380px] h-[350px] rounded p-3
@@ -58,12 +58,10 @@ const AlgoView = () => {
       rounded w-full border-2 h-[45px] border-[#00819E]"
       >
         <button
-          disabled={running}
           onClick={() => {
-            setStarted((prev) => !prev);
-            // clearPaths();
             setAni();
           }}
+          disabled={running}
           className={`text-2xl  font-semibold
           text-[#00819E] ${
             !running && 'cursor-pointer'
@@ -71,30 +69,32 @@ const AlgoView = () => {
             justify-center border-r-2 border-[#00819E]`}
         >
           Start
-          {/* {started ? (
-            <BsFillPlayFill color="#00819E" />
-          ) : (
-            <BsFillPauseFill color="#00819E" />
-          )} */}
         </button>
-        <span
-          onClick={setRandom()}
-          // onClick={dispatch({ type: types.add, by: 'hello' })}
-          className="text-2xl  font-semibold
-          text-[#00819E] cursor-pointer w-[33%] h-full items-center flex 
-            justify-center border-[#00819E] border-r-2"
+
+        <button
+          onClick={setRandom}
+          disabled={running}
+          className={`text-2xl  font-semibold
+          text-[#00819E] ${
+            !running && 'cursor-pointer'
+          } w-[33%] h-full items-center flex border-r-2 
+          border-[#00819E] justify-center`}
         >
           Shuffle
-        </span>
-
-        <span
-          className="text-2xl  font-semibold
-          text-[#00819E] cursor-pointer w-[33%] h-full items-center flex 
-            justify-center border-[#00819E]"
-          onClick={clearPaths()}
+        </button>
+        <button
+          onClick={() => {
+            reset();
+          }}
+          disabled={running}
+          className={`text-2xl  font-semibold
+          text-[#00819E] ${
+            !running && 'cursor-pointer'
+          } w-[33%] h-full items-center flex 
+            justify-center`}
         >
           Reset
-        </span>
+        </button>
       </div>
       <Delay />
     </div>
