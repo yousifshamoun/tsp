@@ -22,7 +22,11 @@ const SideBar = () => {
             </p>
             <span className="text-xl">TSP Visualizer</span>
             <div className="pl-10  cursor-pointer">
-              <a target="_blank" href="https://github.com/yousifshamoun/tsp">
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://github.com/yousifshamoun/tsp"
+              >
                 <AiFillGithub className="text-xl" />
               </a>
             </div>
