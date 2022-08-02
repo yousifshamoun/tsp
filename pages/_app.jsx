@@ -11,8 +11,8 @@ function MyApp({ Component, pageProps }) {
   if (isSSR) return null;
   //return
   return (
-    <div className="w-full m-auto flex overflow-auto h-full">
-      <div className="h-[92vh] overflow-scroll ">
+    <div className="flex overflow-auto">
+      <div className="h-[100vh] overflow-scroll ">
         <SideBar />
       </div>
 

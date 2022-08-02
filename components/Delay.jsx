@@ -55,7 +55,7 @@ export default function Delay() {
   const delay = useStore((state) => state.delay);
   return (
     <div>
-      <div className="text-gray-500 font-semibold mt-4">DELAY</div>{' '}
+      <div className="text-gray-500 font-semibold mt-4">DELAY</div>
       <PrettoSlider
         onChange={(e) => {
           setDelay({ type: types.add, by: e.target.value });

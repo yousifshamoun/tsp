@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { MdCardTravel } from 'react-icons/md';
 import { AiFillGithub } from 'react-icons/ai';
-import { BiInfoCircle } from 'react-icons/bi';
 import Link from 'next/link';
 import useStore from '../store/stateStore';
 import AlgoView from './AlgoView';
@@ -23,14 +22,9 @@ const SideBar = () => {
             </p>
             <span className="text-xl">TSP Visualizer</span>
             <div className="pl-10  cursor-pointer">
-              <Link href="/">
+              <a target="_blank" href="https://github.com/yousifshamoun/tsp">
                 <AiFillGithub className="text-xl" />
-              </Link>
-            </div>
-            <div className="pl-5  cursor-pointer">
-              <Link href="/">
-                <BiInfoCircle className="text-xl" />
-              </Link>
+              </a>
             </div>
           </div>
           <div
